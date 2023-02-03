@@ -1,0 +1,25 @@
+{
+  "name": "aframe-svelte-webcomponents",
+  "version": "0.0.1",
+  "description": "Create shareable A-Frame primitives with Svelte and Web Components ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "asfads"
+  },
+  "keywords": [
+    "aframe",
+    "svelte",
+    "web",
+    "components"
+  ],
+  "author": "William Murphy",
+  "license": "MIT",
+  "peerDependencies": {
+    "aframe": "^1.4.1",
+    "svelte": "^3.55.1"
+  }
+}
