@@ -1,8 +1,5 @@
 /*
 Adapted from svelte-tag by Chris Ward
-Usage - convert svelte app to web component
-import component from "svelte-tag"
-new component({component:App,tagname:"hello-world",href="/your/stylesheet.css",attributes:["name"]})
 */
 
 // witchcraft from svelte issue - https://github.com/sveltejs/svelte/issues/2588
@@ -31,7 +28,7 @@ function createSlots(slots) {
   return svelteSlots;
 }
 
-export default function(opts){
+export function registerWebComponent(opts){
   const BaseClass = opts.baseClass ?? window.AFRAME.AEntity
   class Wrapper extends BaseClass{
 
@@ -59,7 +56,8 @@ export default function(opts){
       slots = this.getSlots()
       this.slotcount = Object.keys(slots).length
       props.$$slots = createSlots(slots)
-      this.elem = new opts.component({	target: this._root,	props});
+      const context = new Map([['wrapperElement', opts.noWrapper ? null : this]])
+      this.elem = new opts.component({	target: opts.noWrapper ? this.parentElement : this, props, context});
     }
 
     disconnectedCallback(){
@@ -72,6 +70,7 @@ export default function(opts){
     
     unwrap(from){
       let node = document.createDocumentFragment();
+      // TODO - this drops the actual [slot] element and only clones its children
       while (from.firstChild) {
         node.appendChild(from.removeChild(from.firstChild));
       }
@@ -93,10 +92,15 @@ export default function(opts){
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
+      if (!opts.attributes.includes(name)) {
+        // passthrough for inherited attrs
+        return super.attributeChangedCallback?.()
+      }
       if(this.elem && newValue!=oldValue){
         this.elem.$set({[name]:newValue})
       }
     }
   }  
   window.customElements.define(opts.tagname, Wrapper);
+  return Wrapper
 }
