@@ -34,7 +34,7 @@ function createSlots (slots) {
  * @param  {object} opts
  * @param  {function} opts.Component - the Svelte component constructor
  * @param  {string} opts.tagname - the element tag for the Web Component, must contain a '-'
- * @param  {string[]} opts.attributes - the props from the Svelte copmonent which will be settable via setAttribute
+ * @param  {string[]} [opts.props] - the prop names from the Svelte copmonent which will be settable via HTML attributes (auto-converted between camelCase an dash-case)
  * @param  {HTMLElement} [opts.baseClass] - base class that Web Component element will inherit from, default's to AEntity
  * @param  {boolean} [opts.noWraper] - EXPERIMENTAL: render the Svelte component output as siblings to the Web Component element instead of as children
  * @example <caption>Basic usage</caption>
@@ -48,6 +48,11 @@ function createSlots (slots) {
  */
 export function registerWebComponent (opts) {
   const BaseClass = opts.baseClass ?? window.AFRAME.AEntity
+  opts.props ??= []
+  // setup camel/dash case conversions
+  const attributes = opts.props.map(prop => dashify(prop))
+  const toDash = Object.fromEntries(opts.props.map((prop, i) => [prop, attributes[i]]))
+  const toCamel = Object.fromEntries(opts.props.map((prop, i) => [attributes[i], prop]))
   class Wrapper extends BaseClass {
     constructor () {
       super()
@@ -55,7 +60,7 @@ export function registerWebComponent (opts) {
     }
 
     static get observedAttributes () {
-      return (opts.attributes || []).concat(BaseClass.observedAttributes || [])
+      return (attributes).concat(BaseClass.observedAttributes || [])
     }
 
     // use init on nodeready instead of connectedCallback to avoid
@@ -63,7 +68,11 @@ export function registerWebComponent (opts) {
     init () {
       const props = {}
       props.$$scope = {}
-      Array.from(this.attributes).forEach(attr => (props[attr.name] = attr.value))
+      opts.props.forEach(prop => {
+        if (this.hasAttribute(toDash[prop])) {
+          props[prop] = this.getAttribute(toDash[prop])
+        }
+      })
       props.$$scope = {}
       const slots = this.getSlots()
       props.$$slots = createSlots(slots)
@@ -103,15 +112,32 @@ export function registerWebComponent (opts) {
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
-      if (!opts.attributes.includes(name)) {
+      if (!attributes.includes(name)) {
         // passthrough for inherited attrs
         return super.attributeChangedCallback?.()
       }
       if (this.elem && newValue !== oldValue) {
-        this.elem.$set({ [name]: newValue })
+        this.elem.$set({ [toCamel[name]]: newValue })
       }
     }
   }
   window.customElements.define(opts.tagname, Wrapper)
   return Wrapper
 }
+
+/*!
+ * dashify <https://github.com/jonschlinkert/dashify>
+ *
+ * Copyright (c) 2015-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
+function dashify (str, options) {
+  if (typeof str !== 'string') throw new TypeError('expected a string')
+  return str.trim()
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/\W/g, m => /[À-ž]/.test(m) ? m : '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, m => options && options.condense ? '-' : m)
+    .toLowerCase()
+};
