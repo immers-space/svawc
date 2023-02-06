@@ -90,7 +90,6 @@ export function registerWebComponent (opts) {
 
     unwrap (from) {
       const node = document.createDocumentFragment()
-      // TODO - this drops the actual [slot] element and only clones its children
       while (from.firstChild) {
         node.appendChild(from.removeChild(from.firstChild))
       }
@@ -101,8 +100,8 @@ export function registerWebComponent (opts) {
       const namedSlots = this.querySelectorAll('[slot]')
       const slots = {}
       namedSlots.forEach(n => {
-        slots[n.slot] = this.unwrap(n)
-        this.removeChild(n)
+        slots[n.slot] = document.createDocumentFragment()
+        slots[n.slot].appendChild(n)
       })
       if (this.innerHTML.trim().length) {
         slots.default = this.unwrap(this)
