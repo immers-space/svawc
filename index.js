@@ -104,7 +104,7 @@ export function registerWebComponent (opts) {
         slots[n.slot] = this.unwrap(n)
         this.removeChild(n)
       })
-      if (this.innerHTML.length) {
+      if (this.innerHTML.trim().length) {
         slots.default = this.unwrap(this)
         this.innerHTML = ''
       }
