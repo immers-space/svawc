@@ -1,14 +1,14 @@
 {
-  "name": "aframe-svelte-webcomponents",
+  "name": "svawc",
   "version": "0.0.1",
-  "description": "Create shareable A-Frame primitives with Svelte and Web Components ",
+  "description": "Modern reactive development and HTML templating to A-Frame component development without compromising on speed, usability, or bundle size",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "asfads"
+    "url": "https://github.com/immers-space/svawc.git"
   },
   "keywords": [
     "aframe",
@@ -21,5 +21,8 @@
   "peerDependencies": {
     "aframe": "^1.4.1",
     "svelte": "^3.55.1"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0"
   }
 }
