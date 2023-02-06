@@ -4,7 +4,8 @@
   "description": "Modern reactive development and HTML templating to A-Frame component development without compromising on speed, usability, or bundle size",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "jsdoc -c jsdoc.config.json -d doc -r index.js -R README.md && cp -R readme_files doc/"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,9 @@
     "svelte": "^3.55.1"
   },
   "devDependencies": {
-    "standard": "^17.0.0"
+    "better-docs": "^2.7.2",
+    "jsdoc": "^4.0.0",
+    "standard": "^17.0.0",
+    "taffydb": "^2.7.3"
   }
 }

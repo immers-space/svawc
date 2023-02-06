@@ -1,0 +1,38 @@
+{
+  "tags": {
+      "allowUnknownTags": ["category", "optional"]
+  },
+
+  "plugins": [
+      "plugins/markdown",
+      "node_modules/better-docs/category",
+      "node_modules/better-docs/typedef-import"
+  ],
+  "opts": {
+      "encoding": "utf8",
+      "destination": "doc/",
+      "readme": "README.md",
+      "recurse": true,
+      "verbose": true,
+      "template": "node_modules/better-docs"
+  },
+  "templates": {
+      "cleverLinks": false,
+      "monospaceLinks": false,
+      "search": false,
+      "default": {
+      },
+      "better-docs": {
+          "name": "SVAWC Documentation",
+          "title": "SVAWC Documentation",
+          "trackingCode": "<script type='module' src='https://cdn.jsdelivr.net/npm/immers-client/dist/destination.bundle.js?position=bottom-right&role=friends&save=true'></script>",
+    "hideGenerator": false,
+          "navLinks": [
+              {
+                  "label": "Github",
+                  "href": "https://github.com/immers-space/svawc"
+              }
+          ]
+      }
+  }
+}

@@ -27,16 +27,30 @@ function createSlots (slots) {
   }
   return svelteSlots
 }
-
+/**
+ * Convert a Svelte component into a Web Component for A-Frame.
+ *
+ * Provides the wrapperElement context to the Svelte component with a reference to the custom element instance.
+ * @param  {object} opts
+ * @param  {function} opts.Component - the Svelte component constructor
+ * @param  {string} opts.tagname - the element tag for the Web Component, must contain a '-'
+ * @param  {string[]} opts.attributes - the props from the Svelte copmonent which will be settable via setAttribute
+ * @param  {HTMLElement} [opts.baseClass] - base class that Web Component element will inherit from, default's to AEntity
+ * @param  {boolean} [opts.noWraper] - EXPERIMENTAL: render the Svelte component output as siblings to the Web Component element instead of as children
+ * @example <caption>Basic usage</caption>
+ * // creates and registers the <a-person> custom element from the APerson.svelte component
+ * import { registerWebComponent } from 'svawc'
+ * import APerson from "./APerson.svelte"
+ * registerWebComponent({ component: APerson, tagname: "a-person", attributes: ["skin", "shirt", "pants"] })
+ * @example <caption>Using context to modify the containing element from inside the Svelte component</caption>
+ * import { getContext } from "svelte";
+ * getContext('wrapperElement').setAttribute('shadow', '')
+ */
 export function registerWebComponent (opts) {
   const BaseClass = opts.baseClass ?? window.AFRAME.AEntity
   class Wrapper extends BaseClass {
     constructor () {
       super()
-      this.slotcount = 0
-      this.hasConnected = false
-      const root = this
-      this._root = root
       this.addEventListener('nodeready', () => this.init(), { once: true })
     }
 
@@ -47,12 +61,11 @@ export function registerWebComponent (opts) {
     // use init on nodeready instead of connectedCallback to avoid
     // issues with multiple calls due to A-Frame's initialization delay
     init () {
-      const props = opts.defaults ? opts.defaults : {}
+      const props = {}
       props.$$scope = {}
       Array.from(this.attributes).forEach(attr => (props[attr.name] = attr.value))
       props.$$scope = {}
       const slots = this.getSlots()
-      this.slotcount = Object.keys(slots).length
       props.$$slots = createSlots(slots)
       const context = new Map([['wrapperElement', opts.noWrapper ? null : this]])
       this.elem = new opts.Component({ target: opts.noWrapper ? this.parentElement : this, props, context })
