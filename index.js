@@ -30,7 +30,8 @@ function createSlots (slots) {
 /**
  * Convert a Svelte component into a Web Component for A-Frame.
  *
- * Provides the wrapperElement context to the Svelte component with a reference to the custom element instance.
+ * Provides the wrapperElement context to the Svelte component with a reference to the containing
+ * custom element instance.
  * @param  {object} opts
  * @param  {function} opts.Component - the Svelte component constructor
  * @param  {string} opts.tagname - the element tag for the Web Component, must contain a '-'
@@ -56,7 +57,7 @@ export function registerWebComponent (opts) {
   class Wrapper extends BaseClass {
     constructor () {
       super()
-      this.addEventListener('nodeready', () => this.init(), { once: true })
+      this.addEventListener('nodeready', () => this.init())
     }
 
     static get observedAttributes () {
