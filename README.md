@@ -85,17 +85,15 @@ Usage in A-Frame Scene:
 
 ```html
 <head>
-	<script src="https://aframe.io/releases/1.4.1/aframe.js"></script>
-	<script src='https://cdn.jsdelivr.net/npm/svawc-template'></script>
+  <script src="https://aframe.io/releases/1.4.1/aframe.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/svawc-template'></script>
 </head>
-
 <body>
-
-	<a-scene>
-		<a-person position="0 0 -3"></a-person>
-		<a-person position="1 0 -3" skin-color="peachpuff" shirt-color="grey" pants-color="darkgrey"></a-person>
-		<a-person position="-1 0 -3" skin-color="sienna" shirt-color="pink" pants-color="white"></a-person>
-	</a-scene>
+  <a-scene>
+    <a-person position="0 0 -3"></a-person>
+    <a-person position="1 0 -3" skin-color="peachpuff" shirt-color="grey" pants-color="darkgrey"></a-person>
+    <a-person position="-1 0 -3" skin-color="sienna" shirt-color="pink" pants-color="white"></a-person>
+  </a-scene>
 </body>
 ```
 
