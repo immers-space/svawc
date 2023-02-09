@@ -128,7 +128,7 @@
 <p><strong>Svelte reactive template source:</strong></p>
 <pre class="prettyprint source lang-Svelte"><code>&lt;!-- APerson.svelte -->
 &lt;script>
-  // props, convertd to dash case on WebComponent, e.g. shirt-color
+  // props, converted to dash case on WebComponent, e.g. shirt-color
   export let skinColor = 'burlywood'
   export let shirtColor = 'seagreen'
   export let pantsColor = 'slateblue'
@@ -186,8 +186,7 @@ registerWebComponent({Component: APerson, tagname: &quot;a-person&quot;, props: 
 <p>Usage in A-Frame Scene:</p>
 <pre class="prettyprint source lang-html"><code>&lt;head>
 	&lt;script src=&quot;https://aframe.io/releases/1.4.1/aframe.js&quot;>&lt;/script>
-  &lt;!-- TODO: working CDN link -->
-	&lt;script src='/build/bundle.js'>&lt;/script>
+	&lt;script src='https://cdn.jsdelivr.net/npm/svawc-template'>&lt;/script>
 &lt;/head>
 
 &lt;body>
@@ -199,7 +198,7 @@ registerWebComponent({Component: APerson, tagname: &quot;a-person&quot;, props: 
 	&lt;/a-scene>
 &lt;/body>
 </code></pre>
-<!-- TODO: [Try it out]() -->
+<p><a href="https://momentous-jelly-secure.glitch.me/">Try it out</a></p>
 <h2>Why it's useful</h2>
 <p>I love A-Frame, but the recurring pain points for me in large apps are handling complex reactive state
 and making nested entity structures re-usable.</p>
@@ -210,30 +209,36 @@ For re-usable structures, you're either stuck with HTML templates, which are awk
 and again serve to keep your structure far from your logic, or you've got to write tons of tedious
 <code>createElement</code> and <code>setAttribute</code> calls.</p>
 <p>SVAWC lets you write the organized, concise code we're accustomed to from modern
-reactive frameworks and integrate it seamlessly in any A-Frame project.</p>
+reactive frameworks and integrate it seamlessly in any A-Frame project. SVAWC is
+the A-Frame answer to React Three Fiber, which is a lovely and powerful framework,
+but never feels quite right to me due the lack of ECS.</p>
 <h2>API documentation</h2>
 <p>View the full API documentation at
 <a href="https://immers-space.github.io/svawc">https://immers-space.github.io/svawc</a></p>
+<h2>Get Started</h2>
+<p>The <a href="https://github.com/immers-space/svawc-template/generate">svawc-template repo</a> has everything you need to start building and publishing SVAWCs.
+<a href="https://github.com/immers-space/svawc-template/generate">Click here to create a copy of it</a>.</p>
 <h2>Feature status</h2>
 <p>This library is fully functional, but some of the features still need some polish</p>
 <dl>
   <dt>🙂 Svelte props as HTML Attributes</dt>
   <dd>
     Svelte props become attributes on the custom element, converting camelCase to dash-case
-    automatically. For now, the props must be explicitly listed in the `props` option.
+    automatically. For now, the props must be explicitly listed in the `props` option, but
+    I'd like to be able to infer them automatically in the future.
   </dd>
   <dt>😀 Light DOM</dt>
   <dd>
-    All component output is renered to the light DOM as children of the custom element.
+    All component output is rendered to the light DOM as children of the custom element.
     Shadow DOM is not available as the boundary breaks A-Frame's scene graph logic,
     and the benefits of Shadow DOM are primarily CSS encapsulation which isn't relevant here.
   </dd>
   <dt>😐 Slots</dt>
   <dd>
-    Full slot functionality is available incluing default and named slots.
+    Full slot functionality is available including default and named slots.
     There's an issue with A-Frame compatibility that generates console errors from slotted
     entities trying to initialize within a document fragment, but it doesn't seem to cause
-    any issues.
+    any issues. Will work on fixes to avoid those errors.
   </dd>
   <dt>😦 Dependency Injection</dt>
   <dd>
