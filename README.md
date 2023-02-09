@@ -20,7 +20,7 @@ SVAWC brings modern reactive development and HTML templating to A-Frame componen
 ```Svelte
 <!-- APerson.svelte -->
 <script>
-  // props, convertd to dash case on WebComponent, e.g. shirt-color
+  // props, converted to dash case on WebComponent, e.g. shirt-color
   export let skinColor = 'burlywood'
   export let shirtColor = 'seagreen'
   export let pantsColor = 'slateblue'
@@ -86,8 +86,7 @@ Usage in A-Frame Scene:
 ```html
 <head>
 	<script src="https://aframe.io/releases/1.4.1/aframe.js"></script>
-  <!-- TODO: working CDN link -->
-	<script src='/build/bundle.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/svawc-template'></script>
 </head>
 
 <body>
@@ -100,7 +99,7 @@ Usage in A-Frame Scene:
 </body>
 ```
 
-<!-- TODO: [Try it out]() -->
+[Try it out](https://momentous-jelly-secure.glitch.me/)
 
 ## Why it's useful
 
@@ -115,12 +114,19 @@ and again serve to keep your structure far from your logic, or you've got to wri
 `createElement` and `setAttribute` calls.
 
 SVAWC lets you write the organized, concise code we're accustomed to from modern
-reactive frameworks and integrate it seamlessly in any A-Frame project.
+reactive frameworks and integrate it seamlessly in any A-Frame project. SVAWC is
+the A-Frame answer to React Three Fiber, which is a lovely and powerful framework,
+but never feels quite right to me due the lack of ECS.
 
 ## API documentation
 
 View the full API documentation at
 [https://immers-space.github.io/svawc](https://immers-space.github.io/svawc)
+
+## Get Started
+
+The [svawc-template repo](https://github.com/immers-space/svawc-template/generate) has everything you need to start building and publishing SVAWCs.
+[Click here to create a copy of it](https://github.com/immers-space/svawc-template/generate).
 
 ## Feature status
 
@@ -130,20 +136,21 @@ This library is fully functional, but some of the features still need some polis
   <dt>🙂 Svelte props as HTML Attributes</dt>
   <dd>
     Svelte props become attributes on the custom element, converting camelCase to dash-case
-    automatically. For now, the props must be explicitly listed in the `props` option.
+    automatically. For now, the props must be explicitly listed in the `props` option, but
+    I'd like to be able to infer them automatically in the future.
   </dd>
   <dt>😀 Light DOM</dt>
   <dd>
-    All component output is renered to the light DOM as children of the custom element.
+    All component output is rendered to the light DOM as children of the custom element.
     Shadow DOM is not available as the boundary breaks A-Frame's scene graph logic,
     and the benefits of Shadow DOM are primarily CSS encapsulation which isn't relevant here.
   </dd>
   <dt>😐 Slots</dt>
   <dd>
-    Full slot functionality is available incluing default and named slots.
+    Full slot functionality is available including default and named slots.
     There's an issue with A-Frame compatibility that generates console errors from slotted
     entities trying to initialize within a document fragment, but it doesn't seem to cause
-    any issues.
+    any issues. Will work on fixes to avoid those errors.
   </dd>
   <dt>😦 Dependency Injection</dt>
   <dd>
