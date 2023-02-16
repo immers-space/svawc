@@ -168,7 +168,7 @@ This library is fully functional, but some of the features still need some polis
 ## Acknowledgements
 
 Big thanks to @dmarcos for undertaking the massive task of porting A-Frame over to
-native Custom Elements for v1.4.0; this would not be possible otheriwse.
+native Custom Elements for v1.4.0; this would not be possible otherwise.
 
 Code adapted from [svelte-tag](https://github.com/crisward/svelte-tag) by Chris Ward.
 
