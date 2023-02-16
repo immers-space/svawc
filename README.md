@@ -158,8 +158,8 @@ This library is fully functional, but some of the features still need some polis
   </dd>
   <dt>😦 Loading order gotcha</dt>
   <dd>
-    SVAWC scripts mustn't be loaded as `type="module"`, `async`, or `defer` as this puts it in
-    conflict with the A-Frame loading order. Instead, load it as a normal script in your `<head>`
+    SVAWC scripts mustn't be loaded as type="module", async, or defer as this puts it in
+    conflict with the A-Frame loading order. Instead, load it as a normal script in your HEAD
     and it will work.
     (<a href="https://github.com/aframevr/aframe/issues/5228">issue status</a>)
   </dd>
