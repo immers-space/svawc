@@ -1,0 +1,5 @@
+.tag:not(body) {
+  text-transform: none;
+  color: #c66;
+  background: none;
+}

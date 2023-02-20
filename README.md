@@ -143,12 +143,11 @@ This library is fully functional, but some of the features still need some polis
     Shadow DOM is not available as the boundary breaks A-Frame's scene graph logic,
     and the benefits of Shadow DOM are primarily CSS encapsulation which isn't relevant here.
   </dd>
-  <dt>😐 Slots</dt>
+  <dt>😀 Slots</dt>
   <dd>
-    Full slot functionality is available including default and named slots.
-    There's an issue with A-Frame compatibility that generates console errors from slotted
-    entities trying to initialize within a document fragment, but it doesn't seem to cause
-    any issues. Will work on fixes to avoid those errors.
+    Full slot functionality is available including default and named slots with the small caveat
+    that the slot content must be wrapped in a <code>template</code> tag.
+    See <a href="https://immers-space.github.io/svawc/tutorial-slots.html">slots tutorial</a> for details.
   </dd>
   <dt>😦 Dependency Injection</dt>
   <dd>
@@ -164,6 +163,8 @@ This library is fully functional, but some of the features still need some polis
     (<a href="https://github.com/aframevr/aframe/issues/5228">issue status</a>)
   </dd>
 </dl>
+
+Key: 😀 complete, 🙂 fully functional but could be improved, 😦 missing or has issues
 
 ## Acknowledgements
 

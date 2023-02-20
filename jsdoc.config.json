@@ -14,6 +14,7 @@
       "readme": "README.md",
       "recurse": true,
       "verbose": true,
+      "tutorials": "guides",
       "template": "node_modules/better-docs"
   },
   "templates": {
@@ -25,6 +26,7 @@
       "better-docs": {
           "name": "SVAWC Documentation",
           "title": "SVAWC Documentation",
+          "css": "readme_files/docstyle.css",
           "trackingCode": "<script type='module' src='https://cdn.jsdelivr.net/npm/immers-client/dist/destination.bundle.js?position=bottom-right&role=friends&save=true'></script>",
     "hideGenerator": false,
           "navLinks": [

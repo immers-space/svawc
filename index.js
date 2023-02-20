@@ -90,24 +90,31 @@ export function registerWebComponent (opts) {
     }
 
     unwrap (from) {
-      const node = document.createDocumentFragment()
-      while (from.firstChild) {
-        node.appendChild(from.removeChild(from.firstChild))
+      if (!from.content) {
+        console.warn('svawc: entities in slots should be wrapped in a template element')
+        const frag = document.createDocumentFragment()
+        frag.appendChild(from)
+        return frag
       }
-      return node
+      from.remove()
+      return from.content
     }
 
     getSlots () {
       const namedSlots = this.querySelectorAll('[slot]')
       const slots = {}
       namedSlots.forEach(n => {
-        slots[n.slot] = document.createDocumentFragment()
-        slots[n.slot].appendChild(n)
+        slots[n.slot] = this.unwrap(n)
       })
-      if (this.innerHTML.trim().length) {
-        slots.default = this.unwrap(this)
-        this.innerHTML = ''
+      const defaultSlot = this.firstElementChild
+      if (defaultSlot) {
+        slots.default = this.unwrap(defaultSlot)
+      } else if (this.textContent.trim().length) {
+        // if the only child is text, wrap in fragment and use as default slot
+        slots.default = document.createDocumentFragment()
+        slots.default.textContent = this.textContent.trim()
       }
+      this.innerHTML = ''
       return slots
     }
 
