@@ -1,6 +1,6 @@
 {
   "name": "svawc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Modern reactive development and HTML templating to A-Frame component development without compromising on speed, usability, or bundle size",
   "main": "index.js",
   "scripts": {
