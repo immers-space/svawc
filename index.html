@@ -19,7 +19,7 @@
   <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
   <link type="text/css" rel="stylesheet" href="styles/app.min.css">
   <link type="text/css" rel="stylesheet" href="styles/iframe.css">
-  <link type="text/css" rel="stylesheet" href="">
+  <link type="text/css" rel="stylesheet" href="readme_files/docstyle.css">
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 
   
@@ -55,6 +55,22 @@
                 >
                     Documentation
                 </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-slots.html">
+                                Using Slots
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
                 
                  
                     
@@ -231,12 +247,11 @@ but never feels quite right to me due the lack of ECS.</p>
     Shadow DOM is not available as the boundary breaks A-Frame's scene graph logic,
     and the benefits of Shadow DOM are primarily CSS encapsulation which isn't relevant here.
   </dd>
-  <dt>😐 Slots</dt>
+  <dt>😀 Slots</dt>
   <dd>
-    Full slot functionality is available including default and named slots.
-    There's an issue with A-Frame compatibility that generates console errors from slotted
-    entities trying to initialize within a document fragment, but it doesn't seem to cause
-    any issues. Will work on fixes to avoid those errors.
+    Full slot functionality is available including default and named slots with the small caveat
+    that the slot content must be wrapped in a <code>template</code> tag.
+    See <a href="https://immers-space.github.io/svawc/tutorial-slots.html">slots tutorial</a> for details.
   </dd>
   <dt>😦 Dependency Injection</dt>
   <dd>
@@ -252,9 +267,10 @@ but never feels quite right to me due the lack of ECS.</p>
     (<a href="https://github.com/aframevr/aframe/issues/5228">issue status</a>)
   </dd>
 </dl>
+<p>Key: 😀 complete, 🙂 fully functional but could be improved, 😦 missing or has issues</p>
 <h2>Acknowledgements</h2>
 <p>Big thanks to @dmarcos for undertaking the massive task of porting A-Frame over to
-native Custom Elements for v1.4.0; this would not be possible otheriwse.</p>
+native Custom Elements for v1.4.0; this would not be possible otherwise.</p>
 <p>Code adapted from <a href="https://github.com/crisward/svelte-tag">svelte-tag</a> by Chris Ward.</p>
 <p>Logo is CC-BY-NC-SA, adapted from a photo by Leonard J Matthews.</p></article>
     </section>

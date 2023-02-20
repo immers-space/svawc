@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type='module' src='https://cdn.jsdelivr.net/npm/immers-client/dist/destination.bundle.js?position=bottom-right&role=friends&save=true'></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVAWC Documentation Using Slots</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="readme_files/docstyle.css">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">SVAWC Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-slots.html">
+                                Using Slots
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/immers-space/svawc"
+                        >
+                            Github
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar tutorials"
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-slots.html">Using Slots</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Tutorial</p>
+                    <h1>Using Slots</h1>
+                </header>
+                <section>
+
+<article>
+    <p>Slots are an important feature for customization and composability.
+You can specify locations in your SVAWC's entity tree where
+the users of your component can provide their own entities.
+For example, a humanoid character SVAWC might have a slot placed inside their
+hand entity so that different items can be easily inserted where they'll
+be parented to the hand and move along with it.</p>
+<h3>Defining SVAWC Slots</h3>
+<p>On the SVAWC development side, slots work exactly as they do in
+Svelte components (<a href="https://svelte.dev/tutorial/slots">see guide</a>).
+All you do is place <code>&lt;slot&gt;&lt;/slot&gt;</code> a element in your component's HTML template to
+mark the place where content can be inserted.
+You can also place default content inside the slot tags that will be used
+only when custom content is not provided by the SVAWC user.</p>
+<p>This <code>a-cage</code> SVAWC creates a wireframe box around whatever content
+is placed in its slot:</p>
+<pre class="prettyprint source lang-svelte"><code>&lt;!-- ACage.Svelte -->
+&lt;a-entity geometry=&quot;primitive: box&quot; material=&quot;color: red; wireframe: true&quot;>
+  &lt;slot>&lt;/slot>
+&lt;/a-entity>
+</code></pre>
+<h3>Using SVAWC Slots</h3>
+<p>On the SVAWC usage side, there is one difference from how slots are used
+in Svelte or HTML WebComponents.
+You still add entities as children of the SVAWC to populate the slots,
+but you must wrap it in a <code>&lt;template&gt;&lt;/template&gt;</code> tag.
+This is to prevent the A-Frame entities from initializing until after
+they are moved to their slotted locations.</p>
+<p>This scene places a sphere within the <code>a-cage</code> SVAWC</p>
+<pre class="prettyprint source lang-html"><code>&lt;a-cage>
+  &lt;template>
+    &lt;a-sphere radius=&quot;0.5&quot;>&lt;/a-sphere>
+  &lt;/template>
+&lt;/a-cage>
+</code></pre>
+<h3>Multiple slots</h3>
+<p>Just as in Svelte or WebComponents, you can have multiple slots
+that are differentiate with the <code>name</code> attribute, and you can
+have one default slot that doesn't have a name. Using
+these slots also works just like standard slots, using
+the <code>slot</code> attribute on the to specify the name.</p>
+<p>This <code>a-camera-rig</code> SVAWC has named slots to attach
+entities to the camera and each tracked controller
+as well as a default slot to place content relative to the entire rig</p>
+<pre class="prettyprint source lang-svelte"><code>&lt;!-- ACameraRig.svelte -->
+&lt;a-entity camera>
+  &lt;slot name=&quot;hud&quot;>&lt;/slot>
+&lt;/a-entity>
+&lt;a-entity hand-controls=&quot;hand: left&quot;>
+  &lt;slot name=&quot;leftHand&quot;>&lt;/slot>
+&lt;/a-entity>
+&lt;a-entity hand-controls=&quot;hand: right&quot;>
+  &lt;slot name=&quot;leftHand&quot;>&lt;/slot>
+&lt;/a-entity>
+&lt;slot>&lt;/slot>
+</code></pre>
+<pre class="prettyprint source lang-html"><code>&lt;a-camera-rig>
+  &lt;template slot=&quot;hud&quot;>
+    &lt;a-image src=&quot;#hud-overlay&quot; position=&quot;0 0 -0.1&quot;>&lt;/a-image>
+  &lt;/template>
+  &lt;template slot=&quot;leftHand&quot;>
+    &lt;a-gltf-model src=&quot;#shield-model&quot;>&lt;/a-gltf-model>
+  &lt;/template>
+  &lt;template slot=&quot;rightHand&quot;>
+    &lt;a-gltf-model src=&quot;#sword-model&quot;>&lt;/a-gltf-model>
+  &lt;/template>
+  &lt;template>
+    &lt;a-image src=&quot;#playspace-center-marker&quot; position=&quot;0 0.05 0&quot; rotation=&quot;-90 0 0&quot;>&lt;/a-image>
+  &lt;/template>
+&lt;/a-camera-rig>
+</code></pre>
+</article>
+
+</section>
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
