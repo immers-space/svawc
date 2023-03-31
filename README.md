@@ -123,7 +123,7 @@ View the full API documentation at
 
 ## Get Started
 
-The [svawc-template repo](https://github.com/immers-space/svawc-template/generate) has everything you need to start building and publishing SVAWCs.
+The [svawc-template repo](https://github.com/immers-space/svawc-template/) has everything you need to start building and publishing SVAWCs.
 [Click here to create a copy of it](https://github.com/immers-space/svawc-template/generate).
 
 ## Feature status
